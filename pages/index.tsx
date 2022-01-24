@@ -1,21 +1,15 @@
+// types
 import type { GetStaticProps, NextPage } from 'next';
+import type { BannerProps } from '../types/pages.types';
+import type { PropertiesProps } from '../types/pages.types';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Flex, Box, Text, Button } from '@chakra-ui/react';
-
+// utils
 import { baseUrl, fetchApi } from '../utils/fetchApi';
-
-
-type BannerProps = {
-   purpose: string,
-   imageUrl: string,
-   title1: string,
-   title2: string,
-   desc1: string,
-   desc2: string,
-   linkName: string,
-   buttonText: string,
-};
+// components
+import Property from '../components/Property/Property';
 
 
 const Banner = ({ purpose, imageUrl, title1, title2, desc1, desc2, linkName, buttonText }: BannerProps) => (
@@ -32,7 +26,7 @@ const Banner = ({ purpose, imageUrl, title1, title2, desc1, desc2, linkName, but
    </Flex>
 );
 
-const Home: NextPage = ({ propertiesForSale, propertiesForRent }: any) => {
+const Home: NextPage<PropertiesProps> = ({ propertiesForSale, propertiesForRent }) => {
    console.log(propertiesForSale, propertiesForRent);
 
    return (
@@ -49,7 +43,7 @@ const Home: NextPage = ({ propertiesForSale, propertiesForRent }: any) => {
          />
          <Flex flexWrap={'wrap'}>
             {
-               propertiesForSale.map((property: any) => <Property property={property} key={property.id} />)
+               propertiesForSale.map((property) => <Property property={property} key={property.id} />)
             }
          </Flex>
          <Banner
@@ -64,7 +58,7 @@ const Home: NextPage = ({ propertiesForSale, propertiesForRent }: any) => {
          />
          <Flex flexWrap={'wrap'}>
             {
-               propertiesForRent.map((property: any) => <Property property={property} key={property.id} />)
+               propertiesForRent.map((property) => <Property property={property} key={property.id} />)
             }
          </Flex>
       </Box>
@@ -74,8 +68,8 @@ const Home: NextPage = ({ propertiesForSale, propertiesForRent }: any) => {
 export default Home;
 
 
-export const getStaticProps = async () => {
-   // export const getStaticProps: GetStaticProps = async () => {
+// export const getStaticProps: GetStaticProps | Promise<PropertiesTypes[]> = async () => {
+export const getStaticProps: GetStaticProps = async () => {
    const propertyForSale = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`);
    const propertyForRent = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`);
 

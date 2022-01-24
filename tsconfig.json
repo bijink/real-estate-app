@@ -23,7 +23,8 @@
       "next-env.d.ts",
       "**/*.ts",
       "**/*.tsx",
-      "next.config.js"
+      "next.config.js",
+      "utils/fetchApi.js"
    ],
    "exclude": [
       "node_modules"
