@@ -10,7 +10,7 @@ export interface BannerProps {
 };
 
 export interface PropertiesTypes {
-   id: string,
+   id: number,
    price: number,
    rentFrequency: string,
    rooms: number,
@@ -19,9 +19,20 @@ export interface PropertiesTypes {
    area: number,
    isVerified: boolean,
    externalID: string;
-
-   coverPhoto: any,
-   agency: any,
+   coverPhoto: {
+      externalID: string;
+      id: number;
+      main: boolean;
+      nimaScore: number;
+      orderIndex: number;
+      title: string;
+      url: string;
+   };
+   agency: {
+      logo: {
+         url: string;
+      };
+   };
 };
 
 export interface PropertiesProps {

@@ -1,15 +1,27 @@
-// types
+// Types
 import type { AppProps } from 'next/app';
-// styles
+// Styles
 import '../styles/globals.css';
 
 import { ChakraProvider } from '@chakra-ui/react';
+import Router from 'next/router';
+import Head from 'next/head';
+import NProgress from 'nprogress';
+import Layout from '../components/Layout/Layout';
+
 
 function MyApp({ Component, pageProps }: AppProps) {
    return (
-      // <ChakraProvider>
-      <Component {...pageProps} />
-      // </ChakraProvider>
+      <>
+         <Head>
+
+         </Head>
+         <ChakraProvider>
+            <Layout>
+               <Component {...pageProps} />
+            </Layout>
+         </ChakraProvider>
+      </>
    );
 }
 

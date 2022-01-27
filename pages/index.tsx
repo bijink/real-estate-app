@@ -1,4 +1,4 @@
-// types
+// Types
 import type { GetStaticProps, NextPage } from 'next';
 import type { BannerProps } from '../types/pages.types';
 import type { PropertiesProps } from '../types/pages.types';
@@ -6,9 +6,9 @@ import type { PropertiesProps } from '../types/pages.types';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Flex, Box, Text, Button } from '@chakra-ui/react';
-// utils
+// Utils
 import { baseUrl, fetchApi } from '../utils/fetchApi';
-// components
+// Components
 import Property from '../components/Property/Property';
 
 
@@ -43,7 +43,7 @@ const Home: NextPage<PropertiesProps> = ({ propertiesForSale, propertiesForRent 
          />
          <Flex flexWrap={'wrap'}>
             {
-               propertiesForSale.map((property) => <Property property={property} key={property.id} />)
+               propertiesForRent.map((property) => <Property property={property} key={property.id} />)
             }
          </Flex>
          <Banner
@@ -58,7 +58,7 @@ const Home: NextPage<PropertiesProps> = ({ propertiesForSale, propertiesForRent 
          />
          <Flex flexWrap={'wrap'}>
             {
-               propertiesForRent.map((property) => <Property property={property} key={property.id} />)
+               propertiesForSale.map((property) => <Property property={property} key={property.id} />)
             }
          </Flex>
       </Box>
