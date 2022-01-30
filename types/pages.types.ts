@@ -39,3 +39,7 @@ export interface PropertiesProps {
    propertiesForRent: PropertiesTypes[];
    propertiesForSale: PropertiesTypes[];
 };
+
+export interface SearchPropertiesProps {
+   properties: PropertiesTypes[];
+};

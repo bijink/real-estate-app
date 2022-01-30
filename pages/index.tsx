@@ -27,7 +27,7 @@ const Banner = ({ purpose, imageUrl, title1, title2, desc1, desc2, linkName, but
 );
 
 const Home: NextPage<PropertiesProps> = ({ propertiesForSale, propertiesForRent }) => {
-   console.log(propertiesForSale, propertiesForRent);
+   // console.log(propertiesForSale, propertiesForRent);
 
    return (
       <Box>
@@ -68,7 +68,6 @@ const Home: NextPage<PropertiesProps> = ({ propertiesForSale, propertiesForRent 
 export default Home;
 
 
-// export const getStaticProps: GetStaticProps | Promise<PropertiesTypes[]> = async () => {
 export const getStaticProps: GetStaticProps = async () => {
    const propertyForSale = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`);
    const propertyForRent = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`);
