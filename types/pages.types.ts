@@ -13,6 +13,7 @@ export interface PropertiesTypes {
    id: number,
    price: number,
    rentFrequency: string,
+   // rentFrequency: 'monthly' | 'yearly' | 'weekly' | 'daily',
    rooms: number,
    title: string,
    baths: number,

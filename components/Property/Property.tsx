@@ -22,7 +22,7 @@ const Property = ({ property: { coverPhoto, price, rentFrequency, rooms, title, 
             <Flex pt={2} alignItems={'center'} justifyContent={'space-between'} >
                <Flex alignItems={'center'}>
                   <Box pr={3} color={'green.400'} >{isVerified && <GoVerified />}</Box>
-                  <Text fontWeight={'bold'} fontSize={'lg'}>AED {millify(price)}{rentFrequency && `/${rentFrequency}`} </Text>
+                  <Text fontWeight={'bold'} fontSize={'lg'}>AED {millify(price)}{rentFrequency && ` / ${rentFrequency}`} </Text>
                </Flex>
                <Box>
                   <Avatar size={'sm'} src={agency?.logo?.url} />
