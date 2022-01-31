@@ -24,7 +24,9 @@
       "**/*.ts",
       "**/*.tsx",
       "next.config.js",
-      "utils/fetchApi.js"
+      "utils/fetchApi.js",
+      "components/ImageScrollbar/ImageScrollbar.tsx",
+      "utils/filterData.js"
    ],
    "exclude": [
       "node_modules"

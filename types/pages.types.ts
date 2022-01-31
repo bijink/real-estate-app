@@ -13,7 +13,6 @@ export interface PropertiesTypes {
    id: number,
    price: number,
    rentFrequency: string,
-   // rentFrequency: 'monthly' | 'yearly' | 'weekly' | 'daily',
    rooms: number,
    title: string,
    baths: number,
@@ -34,6 +33,28 @@ export interface PropertiesTypes {
          url: string;
       };
    };
+   // 
+   description: string;
+   type: string;
+   purpose: string;
+   furnishingStatus: string;
+   amenities: [{
+      externalGroupID: number,
+      groupRank: number,
+      text: string,
+      // amenities: [];
+      amenities: [{
+         text: string;
+      }];
+   }],
+   photos: [{
+      id: number,
+      externalID: string,
+      title: string,
+      url: string,
+      orderIndex: number,
+      nimaScore: number;
+   }],
 };
 
 export interface PropertiesProps {
@@ -43,4 +64,8 @@ export interface PropertiesProps {
 
 export interface SearchPropertiesProps {
    properties: PropertiesTypes[];
+};
+
+export interface PropertyDetailsPropertiesProps {
+   propertyDetails: PropertiesTypes;
 };

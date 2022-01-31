@@ -159,6 +159,7 @@ export const getFilterValues = (filterValues) => {
       bathsMin,
       sort,
       locationExternalIDs,
+      furnishingStatus,
    } = filterValues;
 
    const values = [
@@ -201,6 +202,10 @@ export const getFilterValues = (filterValues) => {
       {
          name: 'categoryExternalID',
          value: categoryExternalID,
+      },
+      {
+         name: 'furnishingStatus',
+         value: furnishingStatus,
       },
    ];
 
