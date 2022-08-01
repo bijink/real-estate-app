@@ -39,9 +39,10 @@ const RightArrow = () => {
 
 
 const ImageScrollbar = ({ data }: PhotosProps) => (
-   <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow} style={{ overflow: 'hidden' }} >
+   // <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow} style={{ overflow: 'hidden' }} >
+   <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow} >
       {data.map(image => (
-         <Box key={image.id} width={'910px'} itemId={`${image.id}`} overflow={'hidden'} p={1} >
+         <Box key={image.id} width={'910px'} itemID={`${image.id}`} overflow={'hidden'} p={1} >
             <Image
                placeholder='blur'
                blurDataURL={image.url}
