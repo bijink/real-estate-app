@@ -1,30 +1,33 @@
-import type { FilterDataType } from "./searchFilters.types";
+import type { FilterDataType, SearchFilterProps } from "./searchFilters.types";
 
 import { useState } from "react";
-import { Flex, Select, Box, Button } from "@chakra-ui/react";
+import { Flex, Select, Box, Button, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { filterData } from '../../utils/filterData';
+import { filterData } from '../../data/filterData';
 import { BsSearch } from "react-icons/bs";
 
 
-const SearchFilters = () => {
+const SearchFilters: React.FC<SearchFilterProps> = ({ totalDataLength }) => {
    const router = useRouter();
    const { pathname, query } = router;
 
    const [filters] = useState(filterData);
-   const [filteredObj, setFilteredObj] = useState({} as FilterDataType | any);
-   let filterStr = '';
+   const [filteredObj, setFilteredObj] = useState({} as FilterDataType);
+   const [pageNum, setPageNum] = useState(1);
 
 
    const handleSearch = () => {
+      let filterStr = '';
+
       for (const key in filteredObj) {
          if (Boolean(filteredObj[key])) {
             filterStr += `${key}=${filteredObj[key]}&`;
          }
       }
       const filterStrSlice = filterStr.slice(0, filterStr.length - 1);
+      const filterStrWithPageNum = (isNaN(pageNum) ? '' : `page=${pageNum}`) + (filterStrSlice && `&${filterStrSlice}`);
 
-      router.push({ pathname: pathname, query: filterStrSlice });
+      router.push({ pathname: pathname, query: filterStrWithPageNum });
    };
 
 
@@ -58,16 +61,32 @@ const SearchFilters = () => {
                );
             })}
          </Flex>
-         <Button
-            colorScheme='blue'
-            leftIcon={<BsSearch />}
-            width={'20%'}
-            size="sm"
-            mx="auto"
-            onClick={() => handleSearch()}
-         >
-            Search
-         </Button>
+         <Flex p={2} justifyContent='end'  >
+            <Box bgColor="gray.300" p={2} borderRadius={5}  >
+               <Flex justifyContent="space-between" alignItems="center" mb={2} >
+                  <Text >{`Page(${totalDataLength}) : `}</Text>
+                  <NumberInput
+                     value={isNaN(pageNum) ? '' : pageNum}
+                     onChange={(_, valueAsNumber) => setPageNum(valueAsNumber)}
+                     width="6rem" size="sm" defaultValue={1} min={1} max={totalDataLength} step={1}>
+                     <NumberInputField />
+                     <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                     </NumberInputStepper>
+                  </NumberInput>
+               </Flex>
+               <Button
+                  colorScheme='blue'
+                  leftIcon={<BsSearch />}
+                  width='12rem'
+                  size="sm"
+                  onClick={() => handleSearch()}
+               >
+                  Search
+               </Button>
+            </Box>
+         </Flex>
       </Flex>
    );
 };

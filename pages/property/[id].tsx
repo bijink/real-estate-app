@@ -1,18 +1,19 @@
-import { Box, Flex, Spacer, Text, Avatar } from "@chakra-ui/react";
+// Types
+import type { GetServerSideProps, NextPage } from "next";
+import type { PropertyDetailsPageProps } from "../../types/pages.types";
+
+import { Box, Flex, Text, Avatar } from "@chakra-ui/react";
 import { FaBed, FaBath } from 'react-icons/fa';
 import { BsGridFill } from 'react-icons/bs';
 import { GoVerified } from 'react-icons/go';
 import millify from "millify";
 
 import { baseUrl, fetchApi } from '../../utils/fetchApi';
-// Types
-import type { GetServerSideProps, NextPage } from "next";
-import type { PropertyDetailsPropertiesProps } from "../../types/pages.types";
 
 import ImageScrollbar from "../../components/ImageScrollbar/ImageScrollbar";
 
 
-const PropertyDetails: NextPage<PropertyDetailsPropertiesProps> = ({ propertyDetails: { price, rentFrequency, rooms, title, baths, area, agency, isVerified, description, type, purpose, furnishingStatus, amenities, photos } }) => (
+const PropertyDetails: NextPage<PropertyDetailsPageProps> = ({ propertyDetails: { price, rentFrequency, rooms, title, baths, area, agency, isVerified, description, type, purpose, furnishingStatus, amenities, photos } }) => (
    <Box maxWidth={'1000px'} m={'auto'} p={4} >
       {photos && <ImageScrollbar data={photos} />}
       <Box w={'full'} p={6} >
@@ -49,7 +50,7 @@ const PropertyDetails: NextPage<PropertyDetailsPropertiesProps> = ({ propertyDet
             )}
          </Flex>
          <Box>
-            {amenities.length && <Text fontSize={'2xl'} fontWeight={'black'} mt={5} >Amenities</Text>}
+            {Boolean(amenities.length) && <Text fontSize={'2xl'} fontWeight={'black'} mt={5} >Amenities</Text>}
             <Flex flexWrap={'wrap'} >
                {amenities.map(item => (
                   item.amenities.map(amenity => (
@@ -77,9 +78,6 @@ export default PropertyDetails;
 
 export const getServerSideProps: GetServerSideProps = async ({ params: { id } }: any) => {
    const data = await fetchApi(`${baseUrl}/properties/detail?externalID=${id}`);
-
-   // console.log(data);
-
 
    return {
       props: {

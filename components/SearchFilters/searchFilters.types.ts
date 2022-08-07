@@ -1,4 +1,14 @@
-export interface FilterDataType {
+import { RootObject } from "../../types/apiResObj.types";
+
+export interface SearchFilterProps {
+   totalDataLength: RootObject["nbPages"];
+}
+
+export type ObjectKey = {
+   [key: string]: string;
+};
+
+export interface FilterDataType extends ObjectKey {
    purpose: string;
    rentFrequency: string;
    categoryExternalID: string;
@@ -10,4 +20,4 @@ export interface FilterDataType {
    sort: string;
    locationExternalIDs: string;
    furnishingStatus: string;
-}
+};

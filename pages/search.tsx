@@ -1,3 +1,7 @@
+// Types
+import type { GetServerSideProps, NextPage } from "next";
+import type { SearchPageProps } from "../types/pages.types";
+
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -7,22 +11,17 @@ import { BsFilter } from "react-icons/bs";
 import SearchFilters from "../components/SearchFilters/SearchFilters";
 import Property from "../components/Property/Property";
 
-import noresult from '../assets/img/noresult.svg';
+import noresult from '../assets/noresult.svg';
 import { baseUrl, fetchApi } from "../utils/fetchApi";
-// Types
-import type { GetServerSideProps, NextPage } from "next";
-import type { SearchPropertiesProps } from "../types/pages.types";
 
 
-const Search: NextPage<SearchPropertiesProps> = ({ properties }) => {
+const Search: NextPage<SearchPageProps> = ({ properties, totalDataLength }) => {
    const [searchFilters, setSearchFilters] = useState(false);
    const router = useRouter();
 
-   // console.log(properties);
-
 
    return (
-      <Box>
+      <Box pb={10} >
          <Flex
             cursor='pointer'
             bg={'gray.100'}
@@ -38,11 +37,11 @@ const Search: NextPage<SearchPropertiesProps> = ({ properties }) => {
             <Text>Search Property By Filters</Text>
             <Icon pl={2} w={7} as={BsFilter} />
          </Flex>
-         {searchFilters && <SearchFilters />}
+         {searchFilters && <SearchFilters totalDataLength={totalDataLength} />}
          <Text fontSize={'2xl'} p={'4'} fontWeight='bold' >
             Properties {((router.query.purpose === 'for-sale') && 'for Sale') || ((router.query.purpose === 'for-rent') && 'for Rent')}
          </Text>
-         <Flex flexWrap={'wrap'} >
+         <Flex flexWrap={'wrap'} justifyContent="center" >
             {properties.map(property => <Property property={property} key={property.id} />)}
          </Flex>
          {properties.length === 0 && (
@@ -59,6 +58,7 @@ export default Search;
 
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+   const hitsPerPage = '12';
    const purpose = query.purpose || 'for-rent';
    const rentFrequency = query.rentFrequency || 'yearly';
    const minPrice = query.minPrice || '0';
@@ -70,12 +70,14 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
    const locationExternalIDs = query.locationExternalIDs || '5002';
    const categoryExternalID = query.categoryExternalID || '4';
    const furnishingStatus = query.furnishingStatus || 'furnished';
+   const pageNum = query.page ? (parseInt(query.page.toString()) - 1) : '0';
 
-   const data = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}&furnishingStatus=${furnishingStatus}`);
+   const data = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=${locationExternalIDs}&hitsPerPage=${hitsPerPage}&page=${pageNum}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}&furnishingStatus=${furnishingStatus}`);
 
    return {
       props: {
          properties: data?.hits,
+         totalDataLength: data?.nbPages,
       }
    };
 };

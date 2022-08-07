@@ -1,36 +1,21 @@
 // Types
 import type { GetStaticProps, NextPage } from 'next';
-import type { BannerProps } from '../types/pages.types';
-import type { PropertiesProps } from '../types/pages.types';
+import type { HomePageProps } from '../types/pages.types';
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { Flex, Box, Text, Button } from '@chakra-ui/react';
+import { Flex, Box } from '@chakra-ui/react';
 // Utils
 import { baseUrl, fetchApi } from '../utils/fetchApi';
 // Components
+import Banner from '../components/Banner/Banner';
 import Property from '../components/Property/Property';
+import RentHouseImg from '../assets/house-img-1.webp';
+import SaleHouseImg from '../assets/house-img-2.webp';
 
 
-const Banner = ({ purpose, imageUrl, title1, title2, desc1, desc2, linkName, buttonText }: BannerProps) => (
-   <Flex flexWrap={'wrap'} justifyContent='center' alignItems={'center'} m={'10'} >
-      <Image src={imageUrl} width={500} height={300} alt='banner' />
-      <Box p={5}>
-         <Text color={'gray.500'} fontSize={'sm'} fontWeight={'medium'} >{purpose}</Text>
-         <Text fontSize='3xl' fontWeight='bold' >{title1}<br />{title2}</Text>
-         <Text color='gray.700' fontSize='lg' paddingTop={'3'} pb={3} fontWeight={'medium'} >{desc1}<br />{desc2}</Text>
-         <Button fontSize={'xl'} >
-            <Link href={linkName} >{buttonText}</Link>
-         </Button>
-      </Box>
-   </Flex>
-);
-
-const Home: NextPage<PropertiesProps> = ({ propertiesForSale, propertiesForRent }) => {
-   // console.log(propertiesForSale, propertiesForRent);
-
+const Home: NextPage<HomePageProps> = ({ propertiesForSale, propertiesForRent }) => {
    return (
-      <Box>
+      <Box pb={10} >
+         {/* Rent */}
          <Banner
             purpose={'RENT A HOME'}
             title1='Rental Homes for'
@@ -39,13 +24,15 @@ const Home: NextPage<PropertiesProps> = ({ propertiesForSale, propertiesForRent 
             desc2='and more'
             buttonText='Expore Renting'
             linkName='/search?purpose=for-rent'
-            imageUrl='https://bayut-production.s3.eu-central-1.amazonaws.com/image/145426814/33973352624c48628e41f2ec460faba4'
+            imageUrl={RentHouseImg}
          />
-         <Flex flexWrap={'wrap'}>
+         <Flex flexWrap='wrap' justifyContent="center" >
             {
                propertiesForRent.map((property) => <Property property={property} key={property.id} />)
             }
          </Flex>
+
+         {/* Sale */}
          <Banner
             purpose={'BUY A HOME'}
             title1='Find, Buy & Own Your'
@@ -54,9 +41,9 @@ const Home: NextPage<PropertiesProps> = ({ propertiesForSale, propertiesForRent 
             desc2='and more'
             buttonText='Expore Buying'
             linkName='/search?purpose=for-sale'
-            imageUrl='https://bayut-production.s3.eu-central-1.amazonaws.com/image/145426814/33973352624c48628e41f2ec460faba4'
+            imageUrl={SaleHouseImg}
          />
-         <Flex flexWrap={'wrap'}>
+         <Flex flexWrap='wrap' justifyContent="center" >
             {
                propertiesForSale.map((property) => <Property property={property} key={property.id} />)
             }

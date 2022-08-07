@@ -7,7 +7,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import Router from 'next/router';
 import Head from 'next/head';
 import NProgress from 'nprogress';
-import Layout from '../components/Layout/Layout';
+import Layout from '../layout/Layout';
 
 
 function MyApp({ Component, pageProps }: AppProps) {

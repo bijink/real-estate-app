@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { Box } from "@chakra-ui/react";
 // Types
-import type { LayoutProps } from './Layout.types';
+import type { LayoutProps } from './layout.types';
 
-import Navbar from '../Navbar/Navbar';
-import Footer from "../Footer/Footer";
+import Navbar from '../components/Navbar/Navbar';
+import Footer from "../components/Footer/Footer";
 
 
 const Layout = ({ children }: LayoutProps) => (

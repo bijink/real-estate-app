@@ -1,5 +1,5 @@
 // Types
-import type { PropertyTypes } from './Property.types';
+import type { PropertyTypes } from './property.types';
 
 import Link from "next/link";
 import Image from "next/image";
@@ -9,12 +9,12 @@ import { BsGridFill } from 'react-icons/bs';
 import { GoVerified } from 'react-icons/go';
 import millify from "millify";
 
-import DefaultImage from '../../assets/img/house.webp';
+import DefaultImage from '../../assets/house-img-0.webp';
 
 
 const Property = ({ property: { coverPhoto, price, rentFrequency, rooms, title, baths, area, agency, isVerified, externalID } }: PropertyTypes) => (
    <Link href={`/property/${externalID}`} passHref>
-      <Flex flexWrap={'wrap'} w="420px" p="5" pt={0} justifyContent={"flex-start"} cursor={'pointer'} >
+      <Flex flexWrap={'wrap'} w="350px" p="5" pt={0} justifyContent={"flex-start"} cursor={'pointer'} >
          <Box>
             <Image
                alt='house'
@@ -22,7 +22,7 @@ const Property = ({ property: { coverPhoto, price, rentFrequency, rooms, title, 
                width={400}
                height={260}
                placeholder='blur'
-               blurDataURL={coverPhoto.url}
+               blurDataURL={coverPhoto?.url}
             />
          </Box>
          <Box w="full">

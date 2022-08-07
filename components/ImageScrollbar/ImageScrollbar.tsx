@@ -4,7 +4,7 @@ import { Box, Icon, Flex } from "@chakra-ui/react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 // Types
-import type { PhotosProps } from "./ImageScrollbar.types";
+import type { PhotosProps } from "./imageScrollbar.types";
 
 
 const LeftArrow = () => {
