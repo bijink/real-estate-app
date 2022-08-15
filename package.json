@@ -1,11 +1,16 @@
 {
    "name": "nextjs-real-estate",
    "private": true,
+   "version": "1.0.0",
+   "engines": {
+      "node": "16.16.0"
+   },
    "scripts": {
       "dev": "next dev",
       "build": "next build",
-      "start": "next start",
-      "lint": "next lint"
+      "start": "next start -p $PORT",
+      "lint": "next lint",
+      "heroku-postbuild": "npm run build"
    },
    "dependencies": {
       "@chakra-ui/react": "^1.7.4",
